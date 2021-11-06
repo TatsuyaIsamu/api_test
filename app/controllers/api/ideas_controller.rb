@@ -1,11 +1,16 @@
 module Api
   class IdeasController < ApplicationController
     def index
-      category = Category.find_by(name: params[:category_name])
-      if category
-        ideas = Idea.where(category_id: category.id)
+      unless params[:category_name] == ""
+        category = Category.find_by(name: params[:category_name])
+        if category
+          ideas = Idea.where(category_id: category.id)
+        else
+          ideas = nil
+        end
       else
-        ideas = nil
+        binding.irb
+        ideas = Idea.all
       end
       if ideas
         idea = ideas.map do |idea|

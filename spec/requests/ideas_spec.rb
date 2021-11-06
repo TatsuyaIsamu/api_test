@@ -49,7 +49,10 @@ describe 'アイデア所得API' do
   end
   context 'カテゴリ名を指定しなかったとき' do
     it '全てのアイデアが所得出来る' do
-      
+      get '/api/ideas?category_name='
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(200)
+      expect(json['data'].length).to eq(4)
     end
   end
   context 'カテゴリ名が存在しなかったとき' do
