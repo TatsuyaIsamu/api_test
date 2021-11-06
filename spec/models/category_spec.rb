@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Category, type: :model do
   describe 'category モデル' do
     context 'インスタンスを作成したとき' do
