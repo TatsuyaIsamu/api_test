@@ -31,18 +31,20 @@ describe 'アイデア登録API' do
 end
 
 describe 'アイデア所得API' do
-  context 'カテゴリ名をリクエストにつけとおくったとき' do
+  let(:first_category){create(:category, name: "category1")}
+  let(:second_category){create(:category, name: "category2")}
+  before do
+    create(:idea, body: "idea1", category_id: first_category.id)
+    create(:idea, body: "idea2", category_id: first_category.id)
+    create(:idea, body: "idea3", category_id: second_category.id)
+    create(:idea, body: "idea4", category_id: second_category.id)
+  end
+  context 'カテゴリ名をリクエストにつけておくったとき' do
     it 'カテゴリ名にひもづくアイデアが所得できる' do
-      # FactoryBot.create_list(:post, 10)
-    
-      # get '/api/v1/posts'
-      # json = JSON.parse(response.body)
-  
-      # # リクエスト成功を表す200が返ってきたか確認する。
-      # expect(response.status).to eq(200)
-  
-      # # 正しい数のデータが返されたか確認する。
-      # expect(json['data'].length).to eq(10)
+      get '/api/ideas?category_name=category1'
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(200)
+      expect(json['data'].length).to eq(2)
     end
   end
   context 'カテゴリ名を指定しなかったとき' do
