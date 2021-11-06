@@ -57,7 +57,8 @@ describe 'アイデア所得API' do
   end
   context 'カテゴリ名が存在しなかったとき' do
     it 'ステータスコード404 が返る' do
-      
+      get '/api/ideas?category_name=category3'
+      expect(response.status).to eq(404)
     end
   end
 end

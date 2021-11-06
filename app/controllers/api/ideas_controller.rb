@@ -1,5 +1,6 @@
 module Api
   class IdeasController < ApplicationController
+
     def index
       unless params[:category_name] == ""
         category = Category.find_by(name: params[:category_name])
@@ -9,7 +10,6 @@ module Api
           ideas = nil
         end
       else
-        binding.irb
         ideas = Idea.all
       end
       if ideas
@@ -21,6 +21,7 @@ module Api
         head 404
       end
     end
+
     def create       
       if params[:category_name].blank? || params[:body].blank?
         head 422
@@ -34,4 +35,5 @@ module Api
       end
     end
   end
+  
 end
