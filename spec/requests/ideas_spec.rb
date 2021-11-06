@@ -8,7 +8,10 @@ describe 'アイデア登録API' do
   end
   context 'カテゴリ名が存在するアイデアを登録しようとしたとき' do
     it '既存のカテゴリ名にアイデアが登録される' do
-      
+      create(:category, name: "test")
+      valid_params = { category_name: 'test', body: "body" }
+      expect { post '/api/ideas', params: valid_params }.to change{Category.count}.by(0).and change{Idea.count}.by(+1)
+      expect(response.status).to eq(201)
     end
   end
 
