@@ -14,8 +14,9 @@ module Api
       end
       if ideas
         idea = ideas.map do |idea|
-          {id: idea.id, category: idea.category.name, body: idea.body, created_at: idea.created_at}
+          {id: idea.id, category: idea.category.name, body: idea.body, created_at: Time.parse("#{idea.created_at}").to_i}
         end
+        binding.irb
         render json: { status: 200,  data: idea }
       else
         head 404
@@ -35,5 +36,5 @@ module Api
       end
     end
   end
-  
+
 end
