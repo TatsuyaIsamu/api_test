@@ -14,15 +14,18 @@ describe 'アイデア登録API' do
       expect(response.status).to eq(201)
     end
   end
-
   context 'カテゴリ名が空のアイデアを登録しようとしたとき' do
     it '登録できない' do
-      
+      invalid_params = { category_name: "", body: "test" }
+      expect { post '/api/ideas', params: invalid_params }.to change{Category.count}.by(0).and change{Idea.count}.by(0)
+      expect(response.status).to eq(422)
     end
   end
   context 'アイデア名が空のアイデアを登録しようとしたとき' do
     it '登録できない' do
-      
+      invalid_params = { category_name: "test", body: "" }
+      expect { post '/api/ideas', params: invalid_params }.to change{Category.count}.by(0).and change{Idea.count}.by(0)
+      expect(response.status).to eq(422)
     end
   end
 end
