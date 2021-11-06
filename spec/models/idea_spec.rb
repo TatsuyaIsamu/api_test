@@ -7,7 +7,7 @@ RSpec.describe Idea, type: :model do
     end
     context 'bodyがnull のインスタンスを作成しようとしたとき' do
       it 'インスタンスが作成できない' do
-        expect{create(:idea, body: nil)}.to raise_error
+        expect { create(:idea, body: nil) }.to raise_error
       end
     end
   end
